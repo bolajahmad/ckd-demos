@@ -1,0 +1,1 @@
+{"version":3,"file":"script.advanced.d.ts","sourceRoot":"","sources":["../../src/ckb/script.advanced.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,QAAQ,EAAE,MAAM,aAAa,CAAC;AAE5C,eAAO,MAAM,gBAAgB,EAAE,MAAM,CAAC,QAAQ,EAAE,MAAM,CAKrD,CAAC;AACF,eAAO,MAAM,gBAAgB,EAAE,MAAM,CAAC,MAAM,EAAE,QAAQ,CAKrD,CAAC;AACF,eAAO,MAAM,UAAU,EAAE,MAAM,EAAkC,CAAC"}

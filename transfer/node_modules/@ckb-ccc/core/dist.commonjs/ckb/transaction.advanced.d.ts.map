@@ -1,0 +1,1 @@
+{"version":3,"file":"transaction.advanced.d.ts","sourceRoot":"","sources":["../../src/ckb/transaction.advanced.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,OAAO,EAAE,MAAM,kBAAkB,CAAC;AAEhD,eAAO,MAAM,eAAe,EAAE,MAAM,CAAC,OAAO,EAAE,MAAM,CAGnD,CAAC;AACF,eAAO,MAAM,eAAe,EAAE,MAAM,CAAC,MAAM,EAAE,OAAO,CAGnD,CAAC;AACF,eAAO,MAAM,SAAS,EAAE,MAAM,EAAiC,CAAC"}

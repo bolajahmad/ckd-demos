@@ -1,0 +1,1 @@
+{"version":3,"file":"verify.d.ts","sourceRoot":"","sources":["../../../src/signer/evm/verify.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,SAAS,EAAa,MAAM,sBAAsB,CAAC;AAE5D;;GAEG;AACH,wBAAgB,wBAAwB,CACtC,OAAO,EAAE,MAAM,GAAG,SAAS,EAC3B,SAAS,EAAE,MAAM,EACjB,OAAO,EAAE,MAAM,GACd,OAAO,CAQT"}
