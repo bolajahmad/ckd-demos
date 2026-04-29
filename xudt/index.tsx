@@ -16,9 +16,7 @@ root.render(<App />);
 
 function IssuedToken() {
   // default value: first account privkey from offckb
-  const [privKey, setPrivKey] = useState(
-    "0x6109170b275a09ad54877b82f7d9930f88cab5717d484fb4741ae9d1dd078cd6",
-  );
+  const [privKey, setPrivKey] = useState("");
   const [lockScript, setLockScript] = useState<Script>();
   const [balance, setBalance] = useState("0");
 
