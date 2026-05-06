@@ -54,3 +54,59 @@ fn test_hello_world() {
         .expect("pass verification");
     println!("consume cycles: {}", cycles);
 }
+
+// generated unit test for contract print-args
+#[test]
+fn test_print_args() {
+    // deploy contract
+    let mut context = Context::default();
+    let out_point = context.deploy_cell_by_name("print-args");
+
+    // prepare scripts
+    let args_data = ckb_testtool::context::random_hash().as_bytes();
+    let lock_script = context.build_script(&out_point, args_data).expect("script");
+
+    // prepare cells
+    let input_out_point = context.create_cell(
+        CellOutput::new_builder()
+            .capacity(1000)
+            .lock(lock_script.clone())
+            .build(),
+        Bytes::new(),
+    );
+    let input = CellInput::new_builder()
+        .previous_output(input_out_point)
+        .build();
+    let outputs = vec![
+        CellOutput::new_builder()
+            .capacity(500)
+            .lock(lock_script.clone())
+            .build(),
+        CellOutput::new_builder()
+            .capacity(500)
+            .lock(lock_script)
+            .build(),
+    ];
+
+    let outputs_data = vec![Bytes::new(); 2];
+
+    // build transaction
+    let tx = TransactionBuilder::default()
+        .input(input)
+        .outputs(outputs)
+        .outputs_data(outputs_data.pack())
+        .build();
+    let tx = context.complete_tx(tx);
+
+    // run
+    let cycles = context
+        .verify_tx(&tx, 10_000_000)
+        .expect("pass verification");
+    println!("consume cycles: {}", cycles);
+
+    println!(
+        "{}",
+        &serde_json::to_string(&context.dump_tx(&tx).expect("dump tx info"))
+            .expect("tx format json")
+    );
+}

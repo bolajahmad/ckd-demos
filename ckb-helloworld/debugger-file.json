@@ -1,0 +1,94 @@
+{
+  "mock_info": {
+    "inputs": [
+      {
+        "input": {
+          "since": "0x0",
+          "previous_output": {
+            "tx_hash": "0x643e139718ec827463f32f82f2b230e6f796e701f37c72e68e9d8fc1500b6a16",
+            "index": "0x0"
+          }
+        },
+        "output": {
+          "capacity": "0x3e8",
+          "lock": {
+            "code_hash": "0x{{ ref_type print-args }}",
+            "hash_type": "type",
+            "args": "0x0ff72b3250e9f3e17b118134c3b7ccf0966cfd7047dd5c2af8dca375569c5383"
+          },
+          "type": null
+        },
+        "data": "0x",
+        "header": null
+      }
+    ],
+    "cell_deps": [
+      {
+        "cell_dep": {
+          "out_point": {
+            "tx_hash": "0x8dbdf716b5c5e510153d063084715ef7b99d4b8cd3c935659870d7646fd88164",
+            "index": "0x0"
+          },
+          "dep_type": "code"
+        },
+        "output": {
+          "capacity": "0x41c413b4a00",
+          "lock": {
+            "code_hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "hash_type": "data",
+            "args": "0x"
+          },
+          "type": "{{ def_type print-args }}"
+        },
+        "data": "0x{{ data ./build/release/print-args }}",
+        "header": null
+      }
+    ],
+    "header_deps": [],
+    "extensions": []
+  },
+  "tx": {
+    "version": "0x0",
+    "cell_deps": [
+      {
+        "out_point": {
+          "tx_hash": "0x8dbdf716b5c5e510153d063084715ef7b99d4b8cd3c935659870d7646fd88164",
+          "index": "0x0"
+        },
+        "dep_type": "code"
+      }
+    ],
+    "header_deps": [],
+    "inputs": [
+      {
+        "since": "0x0",
+        "previous_output": {
+          "tx_hash": "0x643e139718ec827463f32f82f2b230e6f796e701f37c72e68e9d8fc1500b6a16",
+          "index": "0x0"
+        }
+      }
+    ],
+    "outputs": [
+      {
+        "capacity": "0x1f4",
+        "lock": {
+          "code_hash": "0x{{ ref_type print-args }}",
+          "hash_type": "type",
+          "args": "0x0ff72b3250e9f3e17b118134c3b7ccf0966cfd7047dd5c2af8dca375569c5383"
+        },
+        "type": null
+      },
+      {
+        "capacity": "0x1f4",
+        "lock": {
+          "code_hash": "0x{{ ref_type print-args }}",
+          "hash_type": "type",
+          "args": "0x0ff72b3250e9f3e17b118134c3b7ccf0966cfd7047dd5c2af8dca375569c5383"
+        },
+        "type": null
+      }
+    ],
+    "outputs_data": ["0x", "0x"],
+    "witnesses": []
+  }
+}

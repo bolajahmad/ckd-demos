@@ -1351,6 +1351,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "print-args"
+version = "0.1.0"
+dependencies = [
+ "ckb-std",
+]
+
+[[package]]
 name = "proc-macro2"
 version = "1.0.106"
 source = "registry+https://github.com/rust-lang/crates.io-index"
