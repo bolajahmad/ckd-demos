@@ -1,0 +1,10 @@
+# Cargo build artifacts (shared across all workspace crates)
+/target
+
+# Rust backup files (created by some editors)
+**/*.rs.bk
+
+# Environment / secrets
+.env
+.env.*
+!.env.example

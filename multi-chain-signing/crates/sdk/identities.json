@@ -1,0 +1,14 @@
+[
+  {
+    "provider": "google",
+    "id": "1234567890",
+    "email": "jonhdoe@gmail.com",
+    "username": "John Doe"
+  },
+  {
+    "provider": "github",
+    "id": "0987654321",
+    "email": "alicejohn@gmail.com",
+    "username": "alicejohn"
+  }
+]
