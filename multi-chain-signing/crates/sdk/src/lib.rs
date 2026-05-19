@@ -1,9 +1,14 @@
+use bip39::{Language, Mnemonic};
+use bip39::{MnemonicType, Seed};
+use dotenv::dotenv;
+use std::env;
+
+use hex;
 use hmac::{Hmac, Mac};
 use serde::{Deserialize, Serialize};
 use sha2::Sha256;
 
 const IDENTITIES_JSON: &str = include_str!("../identities.json");
-const SERVER_SECRET: &str = "my_secret_key_for_demo_purposes_only";
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Identity {
@@ -47,6 +52,12 @@ pub async fn lookup_identity(
                 id.canonical_id(),
                 entropy
             );
+            let seed_phrase = generate_mnemonic(&entropy).await;
+            println!(
+                "Generated seed phrase for identity {}: {}",
+                id.canonical_id(),
+                seed_phrase.phrase()
+            );
             Ok(Some(id))
         }
         None => {
@@ -62,11 +73,14 @@ pub async fn lookup_identity(
 /// Generate randomness for wallet. I use a SERVER_SECRET for demo purposes.
 /// Takes an Identity and returns a deterministic "random" string based on the identity and the server secret.
 pub async fn generate_entropy(identity: &Identity) -> [u8; 32] {
+    dotenv().ok();
+
     let id = identity.canonical_id();
+    let server_secret = env::var("SERVER_SECRET").expect("SERVER_SECRET must be set");
 
     type HmacSha256 = Hmac<Sha256>;
     let mut mac =
-        HmacSha256::new_from_slice(SERVER_SECRET.as_bytes()).expect("Expects key of any size!");
+        HmacSha256::new_from_slice(server_secret.as_bytes()).expect("Expects key of any size!");
 
     mac.update(id.as_bytes());
     let result = mac.finalize();
@@ -78,8 +92,13 @@ pub async fn generate_entropy(identity: &Identity) -> [u8; 32] {
 /// Generates a mnemonic seed phradse based on standards
 /// Currently thinking of the Bitcoin's HD wallet approach (BIP-39 + BIP-32),
 /// but I intend to research how to make this support CKB (if it doesn't yet)
-pub async fn generate_mnemonic(entropy: &[u8; 32]) -> String {
-    // Placeholder implementation, in a real implementation you would convert the entropy to a mnemonic
-    // using a library like `bip39` or similar.
-    format!("mnemonic-for-entropy-{:x?}", entropy)
+pub async fn generate_mnemonic(entropy: &[u8; 32]) -> Mnemonic {
+    let mnemonic = Mnemonic::new(MnemonicType::Words24, Language::English);
+    println!("Generated mnemonic: {}", mnemonic.phrase());
+
+    // Generate the seed as binary?
+    let seed = Seed::new(&mnemonic, &hex::encode(entropy));
+    println!("Generated seed: {:?}", seed.as_bytes());
+
+    mnemonic
 }
