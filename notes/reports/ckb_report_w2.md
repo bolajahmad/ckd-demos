@@ -15,6 +15,8 @@ Timeline: 18-25 of May, 2026
   - Building a demo project to generate CKB address using various lock scripts
     - Helps with account abstraction implementations
 
+- Exploring Fiber Network (Lightning Network on CKB)
+
 ## Open Ended Questions
 
 - Open-source libraries like ckb-auth, ckb-tools and JoyID are not being maontained currently, why?
@@ -22,3 +24,4 @@ Timeline: 18-25 of May, 2026
 - ckb-auth can still grow with addition of other cryptigraphic signature schemes, what is the process of making these additions?
 
 Not a lot of new docs as I spent time reading available implementations and tooling around cross-chain wallet derivation on CKB.
+
