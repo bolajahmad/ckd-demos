@@ -8,3 +8,13 @@ serde = { workspace = true }
 serde_json = { workspace = true }
 hmac = { workspace = true }
 sha2 = { workspace = true }
+hex = { workspace = true }
+dotenv = { workspace = true }
+tiny-bip39 = { workspace = true }
+bip32 = { workspace = true }
+ckb-sdk = { workspace = true }
+ckb-hash = { workspace = true }
+ckb-types = { workspace = true }
+ckb-crypto = { workspace = true }
+secp256k1 = { workspace = true }
+p256 = { workspace = true }

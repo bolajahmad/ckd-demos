@@ -1,9 +1,19 @@
+use bip39::{Language, Mnemonic, Seed};
+use dotenv::dotenv;
+use std::env;
+
+use hex;
 use hmac::{Hmac, Mac};
 use serde::{Deserialize, Serialize};
 use sha2::Sha256;
 
+mod ckb;
+mod session;
+
+pub use ckb::LockType;
+pub use session::Session;
+
 const IDENTITIES_JSON: &str = include_str!("../identities.json");
-const SERVER_SECRET: &str = "my_secret_key_for_demo_purposes_only";
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Identity {
@@ -19,67 +29,94 @@ impl Identity {
     }
 }
 
-/// Looks up an identity by provider and an id (which could be the ID, email, or username).
-/// Returns the matching [`Identity`] if found, or `None` if no match exists.
-pub async fn lookup_identity(
+// ─── Identity ────────────────────────────────────────────────────────────────
+
+/// Look up an identity by provider + identifier (id, email, or username).
+/// If found, derive entropy and persist a session so subsequent commands
+/// (like `derive`) can use the same keys without re-authenticating.
+pub async fn login(
     provider: &str,
     id: Option<&str>,
 ) -> Result<Option<Identity>, serde_json::Error> {
     let identities: Vec<Identity> = serde_json::from_str(IDENTITIES_JSON)?;
 
-    let result = identities.into_iter().find(|entry| {
+    let found = identities.into_iter().find(|entry| {
         if entry.provider != provider {
             return false;
         }
-        let id_match = id.map_or(false, |v| {
+        id.map_or(false, |v| {
             entry.id == v || entry.email == v || entry.username == v
-        });
-        id_match
+        })
     });
 
-    match result {
-        Some(id) => {
-            // Generate entropy based on the ID,
-            // entropy must always be the same for same ID
-            let entropy = generate_entropy(&id).await;
-            println!(
-                "Generated entropy for identity {}: {:x?}",
-                id.canonical_id(),
-                entropy
-            );
-            Ok(Some(id))
-        }
-        None => {
-            println!(
-                "No identity found for provider '{}' with the given identifier.",
-                provider
-            );
-            Ok(None)
-        }
+    if let Some(ref identity) = found {
+        let entropy = generate_entropy(identity).await;
+        let session = Session {
+            canonical_id: identity.canonical_id(),
+            entropy_hex: hex::encode(entropy),
+        };
+        session.save().expect("Failed to persist session");
+        println!("Session saved for {}", identity.canonical_id());
     }
+
+    Ok(found)
 }
 
-/// Generate randomness for wallet. I use a SERVER_SECRET for demo purposes.
-/// Takes an Identity and returns a deterministic "random" string based on the identity and the server secret.
+// ─── Wallet derivation ───────────────────────────────────────────────────────
+
+/// Derive a CKB address for the currently logged-in session.
+///
+/// Reads the persisted session written by `login`, reconstructs the seed
+/// deterministically, and returns the CKB address for the requested lock type
+/// and network.
+pub fn derive_ckb(
+    lock_type: LockType,
+    network: ckb_sdk::NetworkType,
+) -> Result<ckb_sdk::Address, String> {
+    let session = Session::load()?;
+
+    let entropy_bytes = hex::decode(&session.entropy_hex)
+        .map_err(|e| format!("Invalid entropy in session: {e}"))?;
+
+    let entropy_arr: [u8; 32] = entropy_bytes
+        .try_into()
+        .map_err(|_| "Entropy is not 32 bytes".to_string())?;
+
+    let seed = seed_from_entropy(&entropy_arr);
+
+    let address = ckb::generate_ckb_address(seed, lock_type, network)?;
+    Ok(address)
+}
+
+// ─── Entropy + seed ──────────────────────────────────────────────────────────
+
+/// Derive deterministic 32-byte entropy for an identity via HMAC-SHA256.
+///
+/// `entropy = HMAC_SHA256(SERVER_SECRET, canonical_identity)`
 pub async fn generate_entropy(identity: &Identity) -> [u8; 32] {
-    let id = identity.canonical_id();
+    dotenv().ok();
+
+    let server_secret = env::var("SERVER_SECRET").expect("SERVER_SECRET must be set");
 
     type HmacSha256 = Hmac<Sha256>;
     let mut mac =
-        HmacSha256::new_from_slice(SERVER_SECRET.as_bytes()).expect("Expects key of any size!");
+        HmacSha256::new_from_slice(server_secret.as_bytes()).expect("HMAC accepts any key size");
+    mac.update(identity.canonical_id().as_bytes());
 
-    mac.update(id.as_bytes());
-    let result = mac.finalize();
-    let bytes = result.into_bytes();
-
-    bytes.into()
+    mac.finalize().into_bytes().into()
 }
 
-/// Generates a mnemonic seed phradse based on standards
-/// Currently thinking of the Bitcoin's HD wallet approach (BIP-39 + BIP-32),
-/// but I intend to research how to make this support CKB (if it doesn't yet)
-pub async fn generate_mnemonic(entropy: &[u8; 32]) -> String {
-    // Placeholder implementation, in a real implementation you would convert the entropy to a mnemonic
-    // using a library like `bip39` or similar.
-    format!("mnemonic-for-entropy-{:x?}", entropy)
+/// Convert 32-byte entropy into a BIP39 mnemonic and then into a BIP39 seed.
+///
+/// The entropy is the *source* of the mnemonic (not the passphrase), ensuring
+/// the same entropy always produces the same mnemonic and therefore the same
+/// derived keys.
+fn seed_from_entropy(entropy: &[u8; 32]) -> Seed {
+    dotenv().ok();
+    // `from_entropy` requires 16 / 20 / 24 / 28 / 32 bytes — 32 is valid.
+    let mnemonic = Mnemonic::from_entropy(entropy, Language::English)
+        .expect("32-byte entropy is always valid for BIP39");
+
+    let secret = env::var("MNEMONIC_SECRET").expect("Mnemonic secret in vars");
+    Seed::new(&mnemonic, &secret)
 }
