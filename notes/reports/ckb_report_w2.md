@@ -1,4 +1,4 @@
-# Builder's Journey - Week 1
+# Builder's Journey - Week 2
 
 Timeline: 18-25 of May, 2026
 
