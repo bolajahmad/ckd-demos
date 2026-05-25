@@ -7,3 +7,4 @@ edition = "2024"
 clap = { workspace = true }
 tokio = { workspace = true }
 sdk = { workspace = true }
+ckb-sdk = { workspace = true }
