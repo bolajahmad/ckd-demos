@@ -1,4 +1,4 @@
-# Builder's Journey - Week 1
+# Builder's Journey - Week 2
 
 Timeline: 18-25 of May, 2026
 
@@ -16,6 +16,11 @@ Timeline: 18-25 of May, 2026
     - Helps with account abstraction implementations
 
 - Exploring Fiber Network (Lightning Network on CKB)
+  - Why FIber specifically, LN is mostly due to block interval on Bitcoin being 10m but CKB can be as low as 10s.
+  - Setting Up the Node
+    - Install from (GitHub) source 
+    - Running a fiber node (from CLI)
+    - Custom node RPC using config file
 
 ## Open Ended Questions
 
