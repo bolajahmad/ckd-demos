@@ -1,0 +1,22 @@
+{
+  "invoice": {
+    "amount": "0x3e8",
+    "currency": "Fibt",
+    "data": {
+      "attrs": [
+        {
+          "description": "invoice-generation-demo"
+        },
+        {
+          "final_htlc_minimum_expiry_delta": "0x927c00"
+        },
+        {
+          "payee_public_key": "028abbf47b41d5a1772bddd16ae1a3b8c66db974eae0f82ada4a8f9890a6ff46f8"
+        }
+      ],
+      "payment_hash": "0x51b7768256291dc4e1b70a09a981db4aef1177ba928516c09bd582c5cf5bf1fd",
+      "timestamp": "0x19e8e608338"
+    },
+    "signature": "1816000a1a011b0d041d0210151d1d0d1e10151c16051b1e0a1f030402061c050f081a1717011a0a1a130b100a061d0b0b061e17071319060c03141e0c080b010e0c061a1a08080f0b120b1002131c0a1b181917151405191b080f1c151e0a141c1103130c020000"
+  }
+}
