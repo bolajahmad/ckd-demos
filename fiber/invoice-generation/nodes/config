@@ -1,0 +1,10 @@
+Alice Information
+    LockArg = 0xd12707c86a936e055cbdfb7b541a5da61059b7bb
+    TestNetAddress = ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqw3yurus65ndcz4e00m0d2p5hdxzpvm0wcdvj6ry
+    MainNetAddress = ckb1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqw3yurus65ndcz4e00m0d2p5hdxzpvm0wcr7e4fu
+
+
+Bob Information
+    LockArg = 0xcdce5a3c9e7088d1d83e2f01fca4c60be5db77cc
+    TestNetAddress = ckt1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwdeedre8ns3rgas030q872f3stuhdh0nquz0nks
+    MainNetAddress = ckb1qzda0cr08m85hc8jlnfp3zer7xulejywt49kt2rr0vthywaa50xwsqwdeedre8ns3rgas030q872f3stuhdh0nqjsyuug

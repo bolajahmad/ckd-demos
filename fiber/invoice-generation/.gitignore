@@ -2,5 +2,6 @@
 /ckb
 /fiber
 ckb-key
+/nodes
 
 Cargo.lock
