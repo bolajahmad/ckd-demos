@@ -1,22 +1,125 @@
 {
+  "channel": {
+    "channel_id": "0xcca652dc10359998bd2ccb8a85984c9796e2795a3b1b602441f1cbb790c806b6",
+    "channel_outpoint": "0xb28c884aa6da205caf83e947bbebc35bab927e3cad9134a6ebc0405327d5907300000000",
+    "local_balance": "0x702198148",
+    "remote_balance": "0x2540befb8",
+    "state": "ChannelReady",
+    "status": "already_ready"
+  },
   "invoice": {
-    "amount": "0x3e8",
-    "currency": "Fibt",
-    "data": {
-      "attrs": [
-        {
-          "description": "invoice-generation-demo"
-        },
-        {
-          "final_htlc_minimum_expiry_delta": "0x927c00"
-        },
-        {
-          "payee_public_key": "028abbf47b41d5a1772bddd16ae1a3b8c66db974eae0f82ada4a8f9890a6ff46f8"
-        }
-      ],
-      "payment_hash": "0x51b7768256291dc4e1b70a09a981db4aef1177ba928516c09bd582c5cf5bf1fd",
-      "timestamp": "0x19e8e608338"
+    "amount_shannons": "0x3e8",
+    "description": "invoice-generated-by-bob",
+    "expiry_seconds": 3600,
+    "final_htlc_minimum_expiry_delta": "0x927c00",
+    "invoice_address": "fibt10001pcsaug0p0exgfw0pnm6vk9xdx668qwz6wzhtw0yzavdvw9aed8kp88q7usgc74rjgmdzx9jhfnj9ufwqxtv3pk50f4wg9xvuxcawrl7j6smtcuhz9n5cqchv3tl6agczw7ax5k7c77e8tph0km0sm0e459t089tyxj2uf8jqq0l4ztnd7lmphrcwgvjcdxl7u8yjjqk0zz7z2z4zvm8vm9je8w9jwnwyfua6tf9zwft904gf4w5fkvs9q353v5rcxgmn3efadcadyjcljdmy5ljss9y29j55zwurnwmq6v6z5jls54dal7gd2p53a2pmpmlan3hyex9humv5sh0je7r086rtflegqjcs7qp",
+    "payment_hash": "0xf91d25e76ea49706aa10932a1b50ea1a03eec0873f2f0c1697ea490a5bf9960c",
+    "recipient": {
+      "name": "bob",
+      "pubkey": "0353a133dce8c2faf56994711c66bc2271927e0f4560a7664a8e1463c6b3f62000"
+    }
+  },
+  "nodes": [
+    {
+      "capacity_shannons": 949999999536,
+      "name": "alice",
+      "p2p_addr": "/ip4/127.0.0.1/tcp/8228",
+      "pubkey": "02f72d739acd15992c8242ee854a1826c4c7e9eaf921a1e7480a793366a13a9473",
+      "rpc_url": "http://127.0.0.1:8227"
     },
-    "signature": "1816000a1a011b0d041d0210151d1d0d1e10151c16051b1e0a1f030402061c050f081a1717011a0a1a130b100a061d0b0b061e17071319060c03141e0c080b010e0c061a1a08080f0b120b1002131c0a1b181917151405191b080f1c151e0a141c1103130c020000"
-  }
+    {
+      "capacity_shannons": 990099999754,
+      "name": "bob",
+      "p2p_addr": "/ip4/127.0.0.1/tcp/8238",
+      "pubkey": "0353a133dce8c2faf56994711c66bc2271927e0f4560a7664a8e1463c6b3f62000",
+      "rpc_url": "http://127.0.0.1:8237"
+    }
+  ],
+  "payment": {
+    "created_at": "0x19ecd3ef513",
+    "fee": "0x0",
+    "last_updated_at": "0x19ecd3ef513",
+    "payment_hash": "0xf91d25e76ea49706aa10932a1b50ea1a03eec0873f2f0c1697ea490a5bf9960c",
+    "status": "Success"
+  },
+  "steps": [
+    {
+      "details": {
+        "names": [
+          "alice",
+          "bob"
+        ],
+        "node_count": 2
+      },
+      "node": null,
+      "status": "ok",
+      "step": "discover_nodes"
+    },
+    {
+      "details": {
+        "capacity_shannons": 949999999536,
+        "name": "alice",
+        "pubkey": "02f72d739acd15992c8242ee854a1826c4c7e9eaf921a1e7480a793366a13a9473",
+        "rpc_url": "http://127.0.0.1:8227"
+      },
+      "node": "alice",
+      "status": "ok",
+      "step": "node_info"
+    },
+    {
+      "details": {
+        "capacity_shannons": 990099999754,
+        "name": "bob",
+        "pubkey": "0353a133dce8c2faf56994711c66bc2271927e0f4560a7664a8e1463c6b3f62000",
+        "rpc_url": "http://127.0.0.1:8237"
+      },
+      "node": "bob",
+      "status": "ok",
+      "step": "node_info"
+    },
+    {
+      "details": {
+        "alice_peer": "0353a133dce8c2faf56994711c66bc2271927e0f4560a7664a8e1463c6b3f62000",
+        "bob_peer": "02f72d739acd15992c8242ee854a1826c4c7e9eaf921a1e7480a793366a13a9473"
+      },
+      "node": null,
+      "status": "ok",
+      "step": "connect_peers"
+    },
+    {
+      "details": {
+        "channel_id": "0xcca652dc10359998bd2ccb8a85984c9796e2795a3b1b602441f1cbb790c806b6",
+        "channel_outpoint": "0xb28c884aa6da205caf83e947bbebc35bab927e3cad9134a6ebc0405327d5907300000000",
+        "local_balance": "0x702198148",
+        "remote_balance": "0x2540befb8",
+        "state": "ChannelReady"
+      },
+      "node": "alice",
+      "status": "already_ready",
+      "step": "channel_open"
+    },
+    {
+      "details": {
+        "amount_shannons": "0x3e8",
+        "description": "invoice-generated-by-bob",
+        "expiry_seconds": 3600,
+        "invoice_address": "fibt10001pcsaug0p0exgfw0pnm6vk9xdx668qwz6wzhtw0yzavdvw9aed8kp88q7usgc74rjgmdzx9jhfnj9ufwqxtv3pk50f4wg9xvuxcawrl7j6smtcuhz9n5cqchv3tl6agczw7ax5k7c77e8tph0km0sm0e459t089tyxj2uf8jqq0l4ztnd7lmphrcwgvjcdxl7u8yjjqk0zz7z2z4zvm8vm9je8w9jwnwyfua6tf9zwft904gf4w5fkvs9q353v5rcxgmn3efadcadyjcljdmy5ljss9y29j55zwurnwmq6v6z5jls54dal7gd2p53a2pmpmlan3hyex9humv5sh0je7r086rtflegqjcs7qp",
+        "payment_hash": "0xf91d25e76ea49706aa10932a1b50ea1a03eec0873f2f0c1697ea490a5bf9960c",
+        "recipient_pubkey": "0353a133dce8c2faf56994711c66bc2271927e0f4560a7664a8e1463c6b3f62000"
+      },
+      "node": "bob",
+      "status": "ok",
+      "step": "invoice_created"
+    },
+    {
+      "details": {
+        "fee": "0x0",
+        "payment_hash": "0xf91d25e76ea49706aa10932a1b50ea1a03eec0873f2f0c1697ea490a5bf9960c",
+        "status": "Success"
+      },
+      "node": "alice",
+      "status": "ok",
+      "step": "payment_sent"
+    }
+  ]
 }
