@@ -1,6 +1,6 @@
 # Builder's Journey - Week 2
 
-Timeline: 3-10 of June, 2026
+Timeline: 4-11 of June, 2026
 
 ## Topics Covered
 
