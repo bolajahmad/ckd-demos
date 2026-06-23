@@ -1,6 +1,11 @@
 #![cfg_attr(not(any(feature = "library", test)), no_std)]
 #![cfg_attr(not(test), no_main)]
 
+#[path = "entry.rs"]
+mod entry;
+#[path = "error.rs"]
+mod error;
+
 #[cfg(any(feature = "library", test))]
 extern crate alloc;
 
@@ -16,7 +21,8 @@ ckb_std::entry!(program_entry);
 ckb_std::default_alloc!(16384, 1258306, 64);
 
 pub fn program_entry() -> i8 {
-    ckb_std::debug!("Hello World!");
-
-    0
+    match entry::main() {
+        Ok(_) => 0,
+        Err(err) => err as i8,
+    }
 }
